@@ -9,12 +9,16 @@ class MyComponent extends React.Component {
         address: '147 Yen Hoa',
         age: 21
     };
+    handleClick(event) {
+        console.log('my name is ', this.state.name);
+    }
     //jsx
     render() {
         return (
             <div>
                 My name is {this.state.name}
                 My address is {this.state.address} and my age is {this.state.age} years old
+                <button onClick={this.handleClick}>Click</button>
             </div>
         );
     }
