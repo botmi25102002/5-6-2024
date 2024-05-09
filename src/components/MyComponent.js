@@ -1,5 +1,5 @@
 import React from "react";
-
+import UserInfor from "./UserInfor.js"
 
 class MyComponent extends React.Component {
 
@@ -29,18 +29,7 @@ class MyComponent extends React.Component {
     //jsx
     render() {
         return (
-            <div>
-                My name is {this.state.name}
-                My address is {this.state.address} and my age is {this.state.age} years old
-                <button onClick={(event) => { this.handleClick() }}>Click</button>
-                <form onSubmit={(event) => { this.handleOnSubmit(event) }}>
-                    <input
-                        onChange={(event) => { this.handleOnChangeInput(event) }}
-                        type="text"
-                    />
-                    <button>Submit</button>
-                </form>
-            </div>
+            <UserInfor />
         );
     }
 }
