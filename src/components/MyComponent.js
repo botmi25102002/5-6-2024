@@ -2,16 +2,23 @@ import React from "react";
 import UserInfor from "./UserInfor.js"
 import DisplayInfor from "./DisplayInfor.js";
 class MyComponent extends React.Component {
-
+    state = {
+        listUsers: [
+            { id: 1, name: "Truong", age: 20 },
+            { id: 2, name: "Pham Xuan Truong", age: 30 },
+            { id: 3, name: "PXT", age: 25 },
+            { id: 4, name: "Tom", age: 28 },
+            { id: 5, name: "Truong Pham", age: 35 },
+        ],
+    }
     //jsx
     render() {
-        const Dem = [1, 2, 3, 4]
-        const [one, two] = Dem;
+
         return (
             <div>
                 <UserInfor />
-                <DisplayInfor name="Pham Xuan Truong" age='21' dem={two} />
-                <DisplayInfor name="TruongPX" age='20+1' dem={one} />
+                <DisplayInfor listUsers={this.state.listUsers} />
+
             </div>
 
         );
