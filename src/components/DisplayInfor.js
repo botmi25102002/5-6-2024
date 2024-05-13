@@ -1,5 +1,5 @@
 import React from "react";
-
+import './DisplayInfor.scss';
 class DisplayInfor extends React.Component {
 
     state = {
@@ -25,6 +25,7 @@ class DisplayInfor extends React.Component {
                                 <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
                                     <div>My name's {user.name}</div>
                                     <div>My age's {user.age}</div>
+                                    <button onClick={() => { this.props.handleDeleteUser(user.id) }}>X</button>
                                     <hr />
                                 </div>
                             )

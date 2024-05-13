@@ -20,13 +20,30 @@ class MyComponent extends React.Component {
             listUsers: [objUser, ...this.state.listUsers]
         })
     }
+    handleDeleteUser = (userId) => {
+        let listUsersClone = this.state.listUsers;
+        listUsersClone = listUsersClone.filter(item => item.id !== userId)
+        this.setState({ listUsers: listUsersClone })
+    }
+
+    // this.setState(prevState => ({
+    //     listUsers: prevState.listUsers.filter(item => item.id !== userId)
+    //   }));
+
+
     //jsx
     render() {
 
         return (
             <div>
-                <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
-                <DisplayInfor listUsers={this.state.listUsers} />
+                <AddUserInfor
+                    handleAddNewUser={this.handleAddNewUser}
+
+                />
+                <DisplayInfor
+                    listUsers={this.state.listUsers}
+                    handleDeleteUser={this.handleDeleteUser}
+                />
 
             </div>
 
@@ -34,3 +51,6 @@ class MyComponent extends React.Component {
     }
 }
 export default MyComponent;
+
+
+// JSON.stringify --> convert obj->string
