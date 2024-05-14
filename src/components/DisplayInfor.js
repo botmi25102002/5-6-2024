@@ -1,40 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import './DisplayInfor.scss';
-class DisplayInfor extends React.Component {
+// class DisplayInfor extends React.Component {
 
-    state = {
-        isShowListUser: true,
+//     state = {
+//         isShowListUser: true,
+//     }
+
+//     hideShowList = () => {
+//         this.setState({ isShowListUser: !this.state.isShowListUser });
+//     }
+
+//     render() {
+//         const { listUsers } = this.props;
+//         return (
+//             <div>
+//                 <span onClick={() => { this.hideShowList() }}>
+//                     {this.state.isShowListUser === true ? "ẨN" : "HIỆN"}
+//                 </span>
+//                 {this.state.isShowListUser &&
+//                     <div>
+//                         {listUsers.map((user, index) => {
+
+//                             return (
+//                                 <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
+//                                     <div>My name's {user.name}</div>
+//                                     <div>My age's {user.age}</div>
+//                                     <button onClick={() => { this.props.handleDeleteUser(user.id) }}>X</button>
+//                                     <hr />
+//                                 </div>
+//                             )
+//                         })}
+//                     </div>
+//                 }
+//             </div>
+
+//         )
+//     }
+// }
+
+const DisplayInfor = (props) => {
+
+    const { listUsers } = props;
+    const [isShowListUser, setShowListUser] = useState(true);
+    const handleOnClick = () => {
+        setShowListUser(!isShowListUser)
     }
 
-    hideShowList = () => {
-        this.setState({ isShowListUser: !this.state.isShowListUser });
-    }
+    return (
+        <div>
+            <span onClick={() => { handleOnClick() }}>
+                {isShowListUser === true ? "Hide" : "Show"}
+            </span>
+            {isShowListUser &&
+                <div>
+                    {listUsers.map((user, index) => {
+                        return (
+                            <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
+                                <div>My name's {user.name}</div>
+                                <div>My age's {user.age}</div>
+                                <button onClick={() => { props.handleDeleteUser(user.id) }}>X</button>
+                                <hr />
+                            </div>
+                        )
+                    })}
+                </div>
+            }
+        </div>
 
-    render() {
-        const { listUsers } = this.props;
-        return (
-            <div>
-                <span onClick={() => { this.hideShowList() }}>
-                    {this.state.isShowListUser === true ? "ẨN" : "HIỆN"}
-                </span>
-                {this.state.isShowListUser &&
-                    <div>
-                        {listUsers.map((user, index) => {
-
-                            return (
-                                <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
-                                    <div>My name's {user.name}</div>
-                                    <div>My age's {user.age}</div>
-                                    <button onClick={() => { this.props.handleDeleteUser(user.id) }}>X</button>
-                                    <hr />
-                                </div>
-                            )
-                        })}
-                    </div>
-                }
-            </div>
-
-        )
-    }
+    )
 }
+
 export default DisplayInfor;
