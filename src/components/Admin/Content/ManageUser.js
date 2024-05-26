@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ModalCreateUser from './ModalCreateUser.js';
 import './ManageUser.scss';
 import { CiSquarePlus } from "react-icons/ci";
-
+import TableUser from './TableUser.js';
 const ManageUser = (props) => {
     const [show, setShow] = useState(false);
 
@@ -16,7 +16,7 @@ const ManageUser = (props) => {
                     <button className='btn btn-primary' onClick={() => { setShow(true) }}>  <CiSquarePlus />Add New User</button>
                 </div>
                 <div className="table-users-container">
-                    table user
+                    <TableUser />
 
                 </div>
                 <ModalCreateUser show={show} setShow={setShow} />
