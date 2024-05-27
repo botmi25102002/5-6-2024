@@ -4,10 +4,12 @@ import './ManageUser.scss';
 import { CiSquarePlus } from "react-icons/ci";
 import TableUser from './TableUser.js';
 import { getAllUsers } from "../../../services/apiServices";
-
+import ModalUpdateUser from './ModalUpdateUser.js';
 
 const ManageUser = (props) => {
     const [show, setShow] = useState(false);
+    const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState({});
     const [listUser, setListUser] = useState([
 
     ]);
@@ -21,6 +23,10 @@ const ManageUser = (props) => {
             setListUser(res.DT)
         }
     }
+    const handleClickBtnUpdate = (user) => {
+        setShowModalUpdateUser(true);
+        setDataUpdate(user)
+    }
     return (
         <div className="manage-user-container">
             <div className="title">
@@ -31,10 +37,19 @@ const ManageUser = (props) => {
                     <button className='btn btn-primary' onClick={() => { setShow(true) }}>  <CiSquarePlus />Add New User</button>
                 </div>
                 <div className="table-users-container">
-                    <TableUser listUser={listUser} />
+                    <TableUser
+
+                        listUser={listUser}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+                    />
 
                 </div>
                 <ModalCreateUser show={show} setShow={setShow} fetchListUsers={fetchListUsers} />
+                <ModalUpdateUser
+                    showModalUpdateUser={showModalUpdateUser}
+                    setShowModalUpdateUser={setShowModalUpdateUser}
+                    dataUpdate={dataUpdate}
+                />
             </div>
         </div>
     )
