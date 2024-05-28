@@ -12,7 +12,7 @@ const ModalCreateUser = (props) => {
         setShow(false);
         setEmail("");
         setPassword("");
-        setUserName("");
+        setUsername("");
         setRole("USER");
         setImage("");
         setPreviewImg("");
@@ -20,7 +20,7 @@ const ModalCreateUser = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userName, setUserName] = useState('');
+    const [username, setUsername] = useState('');
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState('');
     const [previewImg, setPreviewImg] = useState('');
@@ -41,6 +41,7 @@ const ModalCreateUser = (props) => {
 
 
     const handleSubmit = async (event) => {
+
         //validate
         const isValidateEmail = validateEmail(email);
         if (!isValidateEmail) {
@@ -52,7 +53,7 @@ const ModalCreateUser = (props) => {
             return;
         }
         //data
-        let data = await postCreateNewUser(email, password, userName, role, image);
+        let data = await postCreateNewUser(email, password, username, role, image);
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -101,8 +102,8 @@ const ModalCreateUser = (props) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userName}
-                                onChange={(event) => setUserName(event.target.value)}
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
                             />
                         </div>
                         <div className="col-md-4">

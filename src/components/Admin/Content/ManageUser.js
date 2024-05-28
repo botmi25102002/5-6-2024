@@ -10,22 +10,24 @@ const ManageUser = (props) => {
     const [show, setShow] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [dataUpdate, setDataUpdate] = useState({});
-    const [listUser, setListUser] = useState([
-
-    ]);
+    const [listUser, setListUser] = useState([]);
     useEffect(() => {
         fetchListUsers();
     }, []);
     const fetchListUsers = async () => {
-        let res = await getAllUsers();
+        const res = await getAllUsers();
         console.log(res);
-        if (res.EC === 0) {
+        if (res && res.EC === 0) {
             setListUser(res.DT)
         }
     }
     const handleClickBtnUpdate = (user) => {
         setShowModalUpdateUser(true);
+        console.log(user);
         setDataUpdate(user)
+    }
+    const resetUpdateData = () => {
+        setDataUpdate({});
     }
     return (
         <div className="manage-user-container">
@@ -44,11 +46,19 @@ const ManageUser = (props) => {
                     />
 
                 </div>
-                <ModalCreateUser show={show} setShow={setShow} fetchListUsers={fetchListUsers} />
+                <ModalCreateUser
+                    show={show}
+                    setShow={setShow}
+                    fetchListUsers={fetchListUsers}
+                />
+
+
                 <ModalUpdateUser
                     showModalUpdateUser={showModalUpdateUser}
                     setShowModalUpdateUser={setShowModalUpdateUser}
                     dataUpdate={dataUpdate}
+                    fetchListUsers={fetchListUsers}
+                    resetUpdateData={resetUpdateData}
                 />
             </div>
         </div>

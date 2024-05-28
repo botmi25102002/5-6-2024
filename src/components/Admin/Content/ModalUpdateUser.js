@@ -5,23 +5,24 @@ import { CiSquarePlus } from "react-icons/ci";
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 
-import { postCreateNewUser } from '../../../services/apiServices'
+import { putUpdateUser } from '../../../services/apiServices'
 const ModalUpdateUser = (props) => {
 
     const { showModalUpdateUser, setShowModalUpdateUser, dataUpdate } = props;
     const handleClose = () => {
         setShowModalUpdateUser(false);
-        setEmail("");
-        setPassword("");
-        setUserName("");
+        setEmail('');
+        setPassword('');
+        setUsername('');
         setRole("USER");
-        setImage("");
-        setPreviewImg("");
+        setImage('');
+        setPreviewImg('');
+        props.resetUpdateData();
     };
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userName, setUserName] = useState('');
+    const [username, setUsername] = useState('');
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState('');
     const [previewImg, setPreviewImg] = useState('');
@@ -29,10 +30,8 @@ const ModalUpdateUser = (props) => {
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
-
             setEmail(dataUpdate.email);
-
-            setUserName(dataUpdate.userName);
+            setUsername(dataUpdate.username);
             setRole(dataUpdate.role);
             setImage("");
             if (dataUpdate.image) {
@@ -64,12 +63,9 @@ const ModalUpdateUser = (props) => {
             toast.error('Invalid email');
             return;
         }
-        if (!password) {
-            toast.error('Invalid password');
-            return;
-        }
+
         //data
-        let data = await postCreateNewUser(email, password, userName, role, image);
+        let data = await putUpdateUser(dataUpdate.id, username, role, image);
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -120,8 +116,8 @@ const ModalUpdateUser = (props) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userName}
-                                onChange={(event) => setUserName(event.target.value)}
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
                             />
                         </div>
                         <div className="col-md-4">
@@ -158,7 +154,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => { handleSubmit() }}  >
+                    <Button variant="primary" onClick={handleSubmit}  >
                         Save Changes
                     </Button>
                 </Modal.Footer>
