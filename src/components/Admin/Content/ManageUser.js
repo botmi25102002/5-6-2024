@@ -5,11 +5,17 @@ import { CiSquarePlus } from "react-icons/ci";
 import TableUser from './TableUser.js';
 import { getAllUsers } from "../../../services/apiServices";
 import ModalUpdateUser from './ModalUpdateUser.js';
+import ModalViewUser from './ModalViewUser.js';
+import ModalDeleteUser from './ModalDeleteUser.js';
 
 const ManageUser = (props) => {
     const [show, setShow] = useState(false);
+    const [showModalViewUser, setShowModalViewUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
+    const [dataUser, setDataUser] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
+    const [dataDelete, setDataDelete] = useState({});
     const [listUser, setListUser] = useState([]);
     useEffect(() => {
         fetchListUsers();
@@ -21,14 +27,28 @@ const ManageUser = (props) => {
             setListUser(res.DT)
         }
     }
+    const handleClickViewDataUser = (user) => {
+        setShowModalViewUser(true);
+        setDataUser(user)
+
+
+    }
     const handleClickBtnUpdate = (user) => {
         setShowModalUpdateUser(true);
-        console.log(user);
+        // console.log(user);
         setDataUpdate(user)
     }
     const resetUpdateData = () => {
         setDataUpdate({});
     }
+    const resetDataView = () => {
+        setDataUser({})
+    }
+    const handleClickBtnDelete = (user) => {
+        setShowModalDeleteUser(true);
+        setDataDelete(user);
+    }
+
     return (
         <div className="manage-user-container">
             <div className="title">
@@ -42,7 +62,9 @@ const ManageUser = (props) => {
                     <TableUser
 
                         listUser={listUser}
+                        handleClickViewDataUser={handleClickViewDataUser}
                         handleClickBtnUpdate={handleClickBtnUpdate}
+                        handleClickBtnDelete={handleClickBtnDelete}
                     />
 
                 </div>
@@ -51,7 +73,12 @@ const ManageUser = (props) => {
                     setShow={setShow}
                     fetchListUsers={fetchListUsers}
                 />
-
+                <ModalViewUser
+                    showModalViewUser={showModalViewUser}
+                    setShowModalViewUser={setShowModalViewUser}
+                    dataUpdate={dataUser}
+                    resetUpdateData={resetDataView}
+                />
 
                 <ModalUpdateUser
                     showModalUpdateUser={showModalUpdateUser}
@@ -59,6 +86,11 @@ const ManageUser = (props) => {
                     dataUpdate={dataUpdate}
                     fetchListUsers={fetchListUsers}
                     resetUpdateData={resetUpdateData}
+                />
+                <ModalDeleteUser s
+                    show={showModalDeleteUser}
+                    setShow={setShowModalDeleteUser}
+                    dataDelete={dataDelete}
                 />
             </div>
         </div>
