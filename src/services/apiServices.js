@@ -30,8 +30,6 @@ const deleteUser = (userId) => {
     return axios.delete('api/v1/participant', { data: { id: userId } });
 }
 
-
-
 const getUserPaginate = (page, limit) => {
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
 }
@@ -45,5 +43,7 @@ const postSignup = (email, password, username) => {
 const getQuizByUser = () => {
     return axios.get(`/api/v1/quiz-by-participant`);
 }
-
-export { postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserPaginate, postLogin, postSignup, getQuizByUser }
+const getDataQuiz = (id) => {
+    return axios.get(`/api/v1/questions-by-quiz?quizId=${id}`);
+}
+export { postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserPaginate, postLogin, postSignup, getQuizByUser, getDataQuiz }
