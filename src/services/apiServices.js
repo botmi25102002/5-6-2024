@@ -8,7 +8,6 @@ const postCreateNewUser = (email, password, username, role, image) => {
     data.append('username', username);
     data.append('role', role);
     data.append('userImage', image);
-    console.log(data);
     return axios.post('api/v1/participant', data);
 
 }
@@ -49,10 +48,20 @@ const getDataQuiz = (id) => {
 const postSubmitQuiz = (data) => {
     return axios.post(`api/v1/quiz-submit`, { ...data });
 }
+
+const postCreateNewQuiz = (description, name, difficulty, image) => {
+    const data = new FormData();
+    data.append('description', description);
+    data.append('name', name);
+    data.append('difficulty', difficulty);
+    data.append('quizImag', image);
+    return axios.post('api/v1/quiz', data);
+}
 export {
     postCreateNewUser, getAllUsers,
     putUpdateUser, deleteUser,
     getUserPaginate, postLogin,
     postSignup, getQuizByUser,
-    getDataQuiz, postSubmitQuiz
+    getDataQuiz, postSubmitQuiz,
+    postCreateNewQuiz
 }

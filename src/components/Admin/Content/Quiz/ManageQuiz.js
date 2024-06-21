@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './ManageQuiz.scss';
 import Select from 'react-select';
+import { postCreateNewQuiz } from '../../../../services/apiServices'
+import { toast } from 'react-toastify';
 
 
 const options = [
@@ -11,11 +13,29 @@ const options = [
 const ManageQuiz = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [type, setType] = useState('EASY');
+    const [type, setType] = useState('');
     const [image, setImage] = useState(null);
+    const handleChangeFile = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setImage(event.target.files[0]);
+        }
+    }
+    const handleSubmitQuiz = async () => {
 
-    const handleChangeFile = () => {
-
+        //validate
+        if (!name || !description) {
+            toast.error('Name or Description is required');
+            return;
+        }
+        let res = await postCreateNewQuiz(description, name, type?.value, image);
+        if (res && res.EC === 0) {
+            toast.success(res.EM);
+            setName('');
+            setDescription('');
+            setImage(null);
+        } else {
+            toast.error(res.EM)
+        }
     }
     return (
         <div className="quiz-container">
@@ -43,7 +63,7 @@ const ManageQuiz = () => {
                     </div>
                     <div className="form-floating">
                         <input
-                            type="password"
+                            type="text"
                             className="form-control"
                             placeholder="description..."
                             value={description}
@@ -53,9 +73,8 @@ const ManageQuiz = () => {
                     </div>
                     <div className='my-3'>
                         <Select
-                            // value={selectedOption}
-                            // onChange={this.handleChange}
-                            value={type}
+                            defaultValue={type}
+                            onChange={setType}
                             options={options}
                             placeholder='Quiz style...'
 
@@ -66,10 +85,15 @@ const ManageQuiz = () => {
                         <input
                             type='file'
                             className='form-control'
-                            onChange={(event) => handleChangeFile()}
+                            onChange={(event) => handleChangeFile(event)}
                         />
+                    </div>
+                    <div className='mt-3'>
 
-
+                        <button
+                            className='btn btn-warning'
+                            onClick={() => { handleSubmitQuiz() }}
+                        >Save</button>
                     </div>
                 </fieldset>
             </div >

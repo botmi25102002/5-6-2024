@@ -27,9 +27,10 @@ const ModalCreateUser = (props) => {
 
 
     const handleUploadImg = (event) => {
-        if (event.target && event.target.files && event.target.files[0])
+        if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImg(URL.createObjectURL(event.target.files[0]));
-        setImage(event.target.files[0]);
+            setImage(event.target.files[0]);
+        }
     }
     const validateEmail = (email) => {
         return String(email)
