@@ -17,6 +17,14 @@
 
         .admin-main {
             // border: 1px solid red;
+
+            height: calc(100vh - 40px);
+
+            .user-pagination {
+                display: flex;
+                justify-content: center;
+
+            }
         }
     }
 }
