@@ -246,13 +246,13 @@ const Questions = () => {
             </div>
             <hr />
             <div className='add-new-questions'>
-                <div className="form-group col-6">
+                <div className="form-group col-6" style={{ position: 'relative', zIndex: 10 }}>
                     <label className='mb-2'>Select Quiz: </label>
                     <Select
                         defaultValue={selectedQuiz}
                         onChange={setSelectedQuiz}
                         options={listQuiz}
-                    // className='form-control'
+
                     />
                 </div>
                 <div className='mt-3 mb-2'>
